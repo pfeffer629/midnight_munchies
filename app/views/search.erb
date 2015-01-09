@@ -1,0 +1,56 @@
+<h1>Midnight Munchies</h1>
+
+<table class='search-table'>
+  <tr class='search-row'>
+    <td></td>
+    <td>Restaurant</td>
+    <td>Rating</td>
+    <td>Price Level</td>
+    <td>Distance</td>
+    <td>Open Status</td>
+  </tr>
+  <% @list.businesses.each do |business|%>
+        <tr class="restaurant-display">
+    	<td>
+    		<img src='<%=business.image_url%>'/>
+    	</td>
+    	<td>
+    		<%= business.name %>
+    	</td>
+    	<td>
+    		Yelp: <img src='<%=business.rating_img_url%>'/>
+    		<br>
+    		<br>
+    		Google: <%= @full_google_info[@i][0] %>
+    	</td>
+        <td>
+            <% if @full_google_info[@i][1] %>
+            <%= "$" * @full_google_info[@i][1] %>
+            <% else %>
+            Select for <br> more info
+            <% end %>
+        </td>
+    	<td>
+    		<%= (business.distance * 0.000621371 * 100).ceil/ 100.0 %> miles
+    	</td>
+    	<td>
+    		<%if @full_google_info[@i][2]%><%='Open' %>
+            <% elsif @full_google_info[@i][2] == nil %>
+            Select for <br> more info
+            <% else %> Closed
+            <% end %>
+    	</td>
+ 		</tr>
+        <tr class='restaurant-more-info' id='<%= @i %>'>
+            <td>
+                <p><%= @location.join(', ') %></p>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <% @i += 1 %>
+   	<% end %>
+</table>

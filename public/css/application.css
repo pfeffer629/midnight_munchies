@@ -1,0 +1,57 @@
+body{
+  background: #343d46;
+  color: #ffffff;
+}
+
+/*
+===================================================
+Search ERB
+===================================================
+*/
+.search-table {
+  width: 100%;
+  margin:0 auto;
+  position:relative;
+  position:absolute;
+  border: 1px solid white;
+}
+
+.search-row {
+  border-bottom: 1px solid white;
+}
+
+.restaurant-display {
+  border: 1px solid white;
+}
+
+.restaurant-more-info {
+  border-bottom: 1px solid white;
+  height: 200px;
+  width: 100%;
+}
+
+td p {
+  display: none;
+}
+
+
+/*
+===================================================
+Index ERB
+===================================================
+*/
+.box img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  display: block;
+}
+
+.button {
+  opacity: 0;
+  margin-top: 20px
+}
+
+.loading-image {
+  margin-top: -20px;
+}
