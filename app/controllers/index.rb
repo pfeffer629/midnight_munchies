@@ -1,8 +1,9 @@
-client = Yelp::Client.new({ consumer_key: ENV['CONSUMER_KEY'],
-                            consumer_secret: ENV['CONSUMER_SECRET'],
-                            token: ENV['TOKEN'],
-                            token_secret: ENV['TOKEN_SECRET']
-                          })
+client = Yelp::Client.new(
+  consumer_key: ENV['CONSUMER_KEY'],
+  consumer_secret: ENV['CONSUMER_SECRET'],
+  token: ENV['TOKEN'],
+  token_secret: ENV['TOKEN_SECRET']
+)
 
 get '/' do
   @user = User.create
@@ -20,14 +21,16 @@ end
 get '/search' do
   @i = 0
 
-  #Yelp API
+  # Yelp API
   user = User.find(session[:user_id])
-  query = {term: 'late night, cheap, 24 hours',
-           radius_filter: 1650,
-           limit: 20}
+  query = {
+    term: 'late night, cheap, 24 hours',
+    radius_filter: 1650,
+    limit: 20
+  }
   latitude = user.latitude
   longitude = user.longitude
-  coordinates = {latitude: latitude, longitude: longitude}
+  coordinates = { latitude: latitude, longitude: longitude }
   @list = client.search_by_coordinates(coordinates, query)
 
   # Google API
@@ -37,14 +40,14 @@ get '/search' do
     uri = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{latitude},#{longitude}&radius=5000&types=food&name=#{business.name}&key=#{ENV['API_KEY']}"
     uri.gsub!(' ', '%20')
 
-    #Store google data for each restaurant
+    # Store google data for each restaurant
     google_business_info = HTTParty.get(uri)
 
     ap google_business_info
-    if google_business_info["results"][0] != nil
-      @single_google_info << google_business_info["results"][0]["rating"]
-      @single_google_info << google_business_info["results"][0]["price_level"]
-      @single_google_info << google_business_info["results"][0]["opening_hours"]["open_now"]
+    unless google_business_info['results'][0] == nil
+      @single_google_info << google_business_info['results'][0]['rating']
+      @single_google_info << google_business_info['results'][0]['price_level']
+      @single_google_info << google_business_info['results'][0]['opening_hours']['open_now']
     end
 
     @full_google_info << @single_google_info

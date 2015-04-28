@@ -7,7 +7,7 @@ require 'rubygems'
 # command line when we run rake spec.  That's tedious, so do it here.
 ENV['RACK_ENV'] ||= 'test'
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path('../../config/environment', __FILE__)
 require 'shoulda-matchers'
 require 'rack/test'
 require 'capybara'
